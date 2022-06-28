@@ -1,8 +1,38 @@
 import React from "react";
 
+import { getArticles, getArticles1 } from "service/api";
 import { Column, Row, Image, Text, Button, Input, List } from "components";
 
 const BlogPagePage = () => {
+  const [apiData1, setapiData1] = React.useState();
+  const [apiData2, setapiData2] = React.useState();
+  React.useEffect(() => {
+    callApi1();
+  }, []);
+
+  function callApi2(data) {
+    const req = { params: { per_page: "3" } };
+    getArticles1(req)
+      .then((res) => {
+        setapiData2(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  function callApi1() {
+    const req = { path: { id: "id" } };
+    getArticles(req)
+      .then((res) => {
+        setapiData1(res);
+
+        callApi2(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   return (
     <>
       <Column className="bg-black_900 items-start justify-start mx-[auto] w-[100%]">
@@ -26,7 +56,7 @@ const BlogPagePage = () => {
             </Row>
           </header>
           <Image
-            src={"images/img_frame9881.png"}
+            src={apiData1?.social_image}
             className="lg:h-[389px] xl:h-[445px] h-[500px] 2xl:h-[501px] 3xl:h-[601px] lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] mx-[auto] object-contain rounded-radius20 w-[88%]"
             alt="Frame9881"
           />
@@ -42,19 +72,23 @@ const BlogPagePage = () => {
             <>{`Writing`}</>
           </span>
         </Text>
-        <Text className="font-gilroy font-semibold 3xl:ml-[103px] lg:ml-[66px] xl:ml-[76px] ml-[86px] lg:mt-[23px] xl:mt-[26px] mt-[30px] 3xl:mt-[36px] lg:text-[40px] xl:text-[46px] text-[52px] 3xl:text-[62px] text-gray_50 text-left w-[auto]">{`How to create a UX Writing portfolio as a beginner`}</Text>
+        <Text className="font-gilroy font-semibold 3xl:ml-[103px] lg:ml-[66px] xl:ml-[76px] ml-[86px] lg:mt-[23px] xl:mt-[26px] mt-[30px] 3xl:mt-[36px] lg:text-[40px] xl:text-[46px] text-[52px] 3xl:text-[62px] text-gray_50 text-left w-[auto]">
+          {apiData1?.title}
+        </Text>
         <Column className="items-center lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] lg:pl-[178px] xl:pl-[204px] pl-[230px] 3xl:pl-[276px] lg:pr-[170px] xl:pr-[194px] pr-[219px] 3xl:pr-[262px] w-[100%]">
           <Row className="font-publicsans items-start justify-start mx-[auto] w-[68%]">
             <Image
-              src={"images/img_profileimglarg_8.png"}
-              className="lg:h-[55px] xl:h-[63px] h-[70px] 2xl:h-[71px] 3xl:h-[85px] object-contain rounded-radius50 w-[auto]"
+              src={apiData1?.user?.profile_image}
+              className="lg:h-[55px] xl:h-[63px] h-[70px] 2xl:h-[71px] 3xl:h-[85px] object-contain rounded-radius50 lg:w-[54px] xl:w-[62px] w-[70px] 3xl:w-[84px]"
               alt="ProfileImgLarg"
             />
             <Column className="font-gilroy items-start justify-start lg:mb-[5px] xl:mb-[6px] mb-[7px] 3xl:mb-[8px] lg:ml-[12px] xl:ml-[14px] ml-[16px] 3xl:ml-[19px] mt-[11px] 3xl:mt-[13px] lg:mt-[8px] xl:mt-[9px] w-[18%]">
-              <Column className="w-[100%]">
-                <Text className="font-semibold mx-[auto] lg:text-[18px] xl:text-[21px] text-[24px] 3xl:text-[28px] text-bluegray_50 text-center w-[auto]">{`By Jane Phillips`}</Text>
-              </Column>
-              <Text className="font-normal lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] not-italic lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_100 text-center w-[auto]">{`12 September, 2020`}</Text>
+              <Text className="font-semibold mx-[auto] lg:text-[18px] xl:text-[21px] text-[24px] 3xl:text-[28px] text-bluegray_50 text-center w-[auto]">
+                {apiData1?.user?.name}
+              </Text>
+              <Text className="font-normal lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] not-italic lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_100 text-center w-[auto]">
+                {apiData1?.readable_publish_date}
+              </Text>
             </Column>
             <div className="3xl:ml-[638px] bg-transparent border-0 lg:ml-[413px] lg:my-[3px] ml-[532px] my-[4px] w-[19%] xl:ml-[473px] xl:my-[3px] input-wrap">
               <Image
@@ -69,7 +103,9 @@ const BlogPagePage = () => {
               ></Input>
             </div>
           </Row>
-          <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">{`Did you come here for something in particular or just general Riker-bashing? And blowing into maximum warp speed, you appeared for an instant to be in two places at once. We have a saboteur aboard. We know you’re dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Could someone survive inside a transporter buffer for 75 years? Fate. It protects fools, little children, and ships named “Enterprise.”`}</Text>
+          <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">
+            {apiData1?.description}
+          </Text>
           <Text className="font-light font-publicsans lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[21px] xl:mt-[24px] mt-[28px] 3xl:mt-[33px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">
             <span className="text-bluegray_100 font-gilroy font-medium">
               <>{`The game’s not big enough unless it scares you a little. Wait a minute – you’ve been declared dead. You can’t give `}</>
@@ -125,15 +161,17 @@ const BlogPagePage = () => {
         <Column className="font-gilroy items-center lg:mt-[51px] xl:mt-[58px] mt-[66px] 3xl:mt-[79px] lg:px-[459px] xl:px-[525px] px-[591px] 3xl:px-[709px] w-[100%]">
           <Row className="items-center justify-center mx-[auto] w-[18%]">
             <Image
-              src={"images/img_profileimglarg_9.png"}
-              className="lg:h-[55px] xl:h-[63px] h-[70px] 2xl:h-[71px] 3xl:h-[85px] object-contain rounded-radius50 w-[auto]"
+              src={apiData1?.user?.profile_image}
+              className="lg:h-[55px] xl:h-[63px] h-[70px] 2xl:h-[71px] 3xl:h-[85px] object-contain rounded-radius50 lg:w-[54px] xl:w-[62px] w-[70px] 3xl:w-[84px]"
               alt="ProfileImgLarg"
             />
             <Column className="items-start lg:mb-[5px] xl:mb-[6px] mb-[7px] 3xl:mb-[8px] lg:ml-[12px] xl:ml-[14px] ml-[16px] 3xl:ml-[19px] mt-[11px] 3xl:mt-[13px] lg:mt-[8px] xl:mt-[9px] w-[67%]">
-              <Column className="w-[100%]">
-                <Text className="font-semibold mx-[auto] lg:text-[18px] xl:text-[21px] text-[24px] 3xl:text-[28px] text-bluegray_50 text-center w-[auto]">{`By Jane Phillips`}</Text>
-              </Column>
-              <Text className="font-normal lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] not-italic lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_100 text-left w-[auto]">{`UX Researcher`}</Text>
+              <Text className="font-semibold mx-[auto] lg:text-[18px] xl:text-[21px] text-[24px] 3xl:text-[28px] text-bluegray_50 text-center w-[auto]">
+                {apiData1?.user?.name}
+              </Text>
+              <Text className="font-normal lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] not-italic lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_100 text-left w-[auto]">
+                {apiData1?.user?.username}
+              </Text>
             </Column>
           </Row>
         </Column>
@@ -143,78 +181,42 @@ const BlogPagePage = () => {
             className="lg:gap-[18px] xl:gap-[21px] gap-[24px] 3xl:gap-[28px] grid grid-cols-3 min-h-[auto] mx-[auto] w-[75%]"
             orientation="horizontal"
           >
-            <Column className="bg-gray_900 border border-bluegray_900 border-solid items-start justify-start py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius23 w-[100%]">
-              <Column className="items-center px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
-                <Image
-                  src={"images/img_placeholder_8.png"}
-                  className="lg:h-[207px] xl:h-[236px] h-[265px] 2xl:h-[266px] 3xl:h-[319px] mx-[auto] object-contain rounded-radius12 w-[94%]"
-                  alt="placeholder"
-                />
-              </Column>
-              <Text className="font-bold lg:leading-[25px] xl:leading-[29px] leading-[33.00px] 2xl:leading-[33px] 3xl:leading-[39px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[94%]">{`How to create a UX Writing portfolio as a beginner`}</Text>
-              <Text className="font-normal lg:leading-[20px] xl:leading-[23px] leading-[26.00px] 2xl:leading-[26px] 3xl:leading-[31px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_50 text-left w-[94%]">{`The film rolls back the clock through Nike’s past as the company expands sport for a new generation over the next half century.`}</Text>
-              <Column className="items-center lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
-                <Row className="items-center justify-between mx-[auto] w-[94%]">
-                  <Row className="items-center justify-start w-[45%]">
+            {apiData2?.map((apiData2Ele) => {
+              return (
+                <Column className="bg-gray_900 border border-bluegray_900 border-solid items-start justify-start py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius23 w-[100%]">
+                  <Column className="items-center px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
                     <Image
-                      src={"images/img_profileimglarg_10.png"}
-                      className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 w-[auto]"
-                      alt="ProfileImgLarg"
+                      src={apiData2Ele?.social_image}
+                      className="lg:h-[207px] xl:h-[236px] h-[265px] 2xl:h-[266px] 3xl:h-[319px] mx-[auto] object-contain rounded-radius12 w-[94%]"
+                      alt="placeholder"
                     />
-                    <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-left w-[auto]">{`Jane Phillips`}</Text>
-                  </Row>
-                  <Text className="font-medium lg:ml-[58px] xl:ml-[66px] ml-[75px] 3xl:ml-[90px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-right w-[auto]">{`22nd June, 2022`}</Text>
-                </Row>
-              </Column>
-            </Column>
-            <Column className="bg-gray_900 border border-bluegray_900 border-solid items-start justify-start py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius23 w-[100%]">
-              <Column className="items-center px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
-                <Image
-                  src={"images/img_placeholder_9.png"}
-                  className="lg:h-[207px] xl:h-[236px] h-[265px] 2xl:h-[266px] 3xl:h-[319px] mx-[auto] object-contain rounded-radius12 w-[94%]"
-                  alt="placeholder"
-                />
-              </Column>
-              <Text className="font-bold lg:leading-[25px] xl:leading-[29px] leading-[33.00px] 2xl:leading-[33px] 3xl:leading-[39px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[94%]">{`How Snapchat and Netflix Break UX Design Principles`}</Text>
-              <Text className="font-normal lg:leading-[20px] xl:leading-[23px] leading-[26.00px] 2xl:leading-[26px] 3xl:leading-[31px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_50 text-left w-[94%]">{`The film rolls back the clock through Nike’s past as the company expands sport for a new generation over the next half century.`}</Text>
-              <Column className="items-center lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
-                <Row className="items-center justify-between mx-[auto] w-[94%]">
-                  <Row className="items-center justify-start w-[43%]">
-                    <Image
-                      src={"images/img_profileimglarg_11.png"}
-                      className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 w-[auto]"
-                      alt="ProfileImgLarg"
-                    />
-                    <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-left w-[auto]">{`Wade John`}</Text>
-                  </Row>
-                  <Text className="font-medium lg:ml-[62px] xl:ml-[71px] ml-[80px] 3xl:ml-[96px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-right w-[auto]">{`22nd June, 2022`}</Text>
-                </Row>
-              </Column>
-            </Column>
-            <Column className="bg-gray_900 border border-bluegray_900 border-solid items-start justify-start py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius23 w-[100%]">
-              <Column className="items-center px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
-                <Image
-                  src={"images/img_placeholder_10.png"}
-                  className="lg:h-[207px] xl:h-[236px] h-[265px] 2xl:h-[266px] 3xl:h-[319px] mx-[auto] object-contain rounded-radius12 w-[94%]"
-                  alt="placeholder"
-                />
-              </Column>
-              <Text className="font-bold lg:leading-[25px] xl:leading-[29px] leading-[33.00px] 2xl:leading-[33px] 3xl:leading-[39px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[94%]">{`How Do You Overcome Imposter Syndrome?`}</Text>
-              <Text className="font-normal lg:leading-[20px] xl:leading-[23px] leading-[26.00px] 2xl:leading-[26px] 3xl:leading-[31px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_50 text-left w-[94%]">{`The film rolls back the clock through Nike’s past as the company expands sport for a new generation over the next half century.`}</Text>
-              <Column className="items-center lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
-                <Row className="items-center justify-between mx-[auto] w-[94%]">
-                  <Row className="items-center justify-start w-[44%]">
-                    <Image
-                      src={"images/img_profileimglarg_12.png"}
-                      className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 w-[auto]"
-                      alt="ProfileImgLarg"
-                    />
-                    <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-left w-[auto]">{`Jack Amber`}</Text>
-                  </Row>
-                  <Text className="font-medium lg:ml-[59px] xl:ml-[68px] ml-[77px] 3xl:ml-[92px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-right w-[auto]">{`22nd June, 2022`}</Text>
-                </Row>
-              </Column>
-            </Column>
+                  </Column>
+                  <Text className="font-bold lg:leading-[25px] xl:leading-[29px] leading-[33.00px] 2xl:leading-[33px] 3xl:leading-[39px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[94%]">
+                    {apiData2Ele?.title}
+                  </Text>
+                  <Text className="font-normal lg:leading-[20px] xl:leading-[23px] leading-[26.00px] 2xl:leading-[26px] 3xl:leading-[31px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_50 text-left w-[94%]">
+                    {apiData2Ele?.description}
+                  </Text>
+                  <Column className="items-center lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
+                    <Row className="items-center justify-between mx-[auto] w-[94%]">
+                      <Row className="items-center justify-start w-[45%]">
+                        <Image
+                          src={apiData2Ele?.user?.profile_image}
+                          className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 lg:w-[43px] xl:w-[49px] w-[56px] 3xl:w-[67px]"
+                          alt="ProfileImgLarg"
+                        />
+                        <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-left w-[auto]">
+                          {apiData2Ele?.user?.name}
+                        </Text>
+                      </Row>
+                      <Text className="font-medium lg:ml-[58px] xl:ml-[66px] ml-[75px] 3xl:ml-[90px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-right w-[auto]">
+                        {apiData2Ele?.readable_publish_date}
+                      </Text>
+                    </Row>
+                  </Column>
+                </Column>
+              );
+            })}
           </List>
           <footer className="xl:mt-[106px] mt-[120px] 3xl:mt-[144px] lg:mt-[93px] w-[100%]">
             <Column className="bg-gray_902 items-start justify-center lg:py-[23px] xl:py-[26px] py-[30px] 3xl:py-[36px] w-[100%]">

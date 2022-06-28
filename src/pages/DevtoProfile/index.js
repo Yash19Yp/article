@@ -1,21 +1,36 @@
 import React from "react";
 
 import { useNavigate } from "react-router-dom";
+import { getMe } from "service/api";
 import { Column, Row, Image, Text, Button, List } from "components";
 
 const DevtoProfilePage = () => {
+  const [apiData, setapiData] = React.useState();
+  React.useEffect(() => {
+    callApi();
+  }, []);
   const navigate = useNavigate();
 
-  function handleNavigate1() {
-    navigate("/writeondevto");
+  function callApi() {
+    const req = {};
+    getMe(req)
+      .then((res) => {
+        setapiData(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
   function handleNavigate2() {
-    navigate("/");
+    navigate("/writeondevto");
   }
   function handleNavigate3() {
+    navigate("/");
+  }
+  function handleNavigate4() {
     navigate("/mediumprofile");
   }
-  function handleNavigate8() {
+  function handleNavigate9() {
     navigate("/writeonmedium");
   }
 
@@ -33,43 +48,51 @@ const DevtoProfilePage = () => {
               <Row className="bg-black_900 items-center justify-center lg:mb-[6px] xl:mb-[7px] mb-[8px] 3xl:mb-[9px] lg:ml-[164px] xl:ml-[187px] ml-[210.87px] 2xl:ml-[211px] 3xl:ml-[253px] lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] w-[23%]">
                 <Text
                   className="common-pointer font-medium lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
-                  onClick={handleNavigate2}
+                  onClick={handleNavigate3}
                 >{`Dashboard`}</Text>
                 <Text className="font-semibold lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-center text-gray_50 w-[auto]">{`Dev.to Profile`}</Text>
                 <Text
                   className="common-pointer font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
-                  onClick={handleNavigate3}
+                  onClick={handleNavigate4}
                 >{`Medium Profile`}</Text>
               </Row>
               <Row className="bg-black_900 items-center justify-center mb-[1px] lg:ml-[150px] xl:ml-[172px] ml-[194px] 3xl:ml-[232px] w-[23%]">
                 <Button
                   className="common-pointer bg-white_A700 font-medium xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[49%]"
-                  onClick={handleNavigate8}
+                  onClick={handleNavigate9}
                 >{`Write on medium`}</Button>
                 <Button
                   className="common-pointer bg-white_A700 font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[44%]"
-                  onClick={handleNavigate1}
+                  onClick={handleNavigate2}
                 >{`Write on dev.to`}</Button>
               </Row>
             </Row>
           </header>
           <Column className="border border-bluegray_900 border-solid items-center justify-center lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] mx-[auto] xl:px-[103px] px-[116px] 3xl:px-[139px] lg:px-[90px] lg:py-[24px] xl:py-[28px] py-[32px] 3xl:py-[38px] rounded-radius8 w-[47%]">
             <Image
-              src={"images/img_ellipse1.png"}
-              className="lg:h-[123px] xl:h-[141px] h-[158px] 2xl:h-[159px] 3xl:h-[190px] mx-[auto] object-contain rounded-radius501 w-[auto]"
+              src={apiData?.profile_image}
+              className="lg:h-[123px] xl:h-[141px] h-[158px] 2xl:h-[159px] 3xl:h-[190px] mx-[auto] object-contain lg:w-[122px] xl:w-[140px] w-[158px] 3xl:w-[189px]"
               alt="Ellipse1"
             />
-            <Text className="font-semibold lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] mx-[auto] lg:text-[28px] xl:text-[32px] text-[36px] 3xl:text-[43px] text-center text-gray_50 w-[auto]">{`Jenny Wilson`}</Text>
-            <Text className="font-medium xl:mt-[3px] lg:mt-[3px] mt-[4px] mx-[auto] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_50 text-center w-[auto]">{`@jennywilson`}</Text>
+            <Text className="font-semibold lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] mx-[auto] lg:text-[28px] xl:text-[32px] text-[36px] 3xl:text-[43px] text-center text-gray_50 w-[auto]">
+              {apiData?.name}
+            </Text>
+            <Text className="font-medium xl:mt-[3px] lg:mt-[3px] mt-[4px] mx-[auto] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_50 text-center w-[auto]">
+              {apiData?.username}
+            </Text>
             <Row className="items-center justify-center lg:mt-[15px] xl:mt-[17px] mt-[20px] 3xl:mt-[24px] mx-[auto] w-[66%]">
-              <Text className="font-medium lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_50 text-left w-[auto]">{`Joined on 22 June 2022`}</Text>
+              <Text className="font-medium lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_50 text-left w-[auto]">
+                {apiData?.joined_at}
+              </Text>
               <Row className="items-center justify-start lg:ml-[38px] xl:ml-[44px] ml-[50px] 3xl:ml-[60px] w-[40%]">
                 <Image
                   src={"images/img_githuboutline.svg"}
                   className="lg:h-[19px] xl:h-[22px] h-[24px] 2xl:h-[25px] 3xl:h-[29px] xl:mb-[3px] mb-[4px] xl:mt-[4px] mt-[5px] 3xl:mt-[6px] lg:my-[3px] object-contain lg:w-[18px] xl:w-[21px] w-[24px] 3xl:w-[28px]"
                   alt="githubOutline"
                 />
-                <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_50 text-left w-[auto]">{`Jennywilson433`}</Text>
+                <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_50 text-left w-[auto]">
+                  {apiData?.github_username}
+                </Text>
               </Row>
             </Row>
           </Column>
@@ -94,7 +117,7 @@ const DevtoProfilePage = () => {
                     <Row className="items-center justify-start w-[46%]">
                       <Image
                         src={"images/img_profileimglarg_6.png"}
-                        className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 w-[auto]"
+                        className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 lg:w-[43px] xl:w-[49px] w-[56px] 3xl:w-[67px]"
                         alt="ProfileImgLarg"
                       />
                       <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-left w-[auto]">{`Jenny Wilson`}</Text>
@@ -118,7 +141,7 @@ const DevtoProfilePage = () => {
                     <Row className="items-center justify-start w-[46%]">
                       <Image
                         src={"images/img_profileimglarg_7.png"}
-                        className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 w-[auto]"
+                        className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 lg:w-[43px] xl:w-[49px] w-[56px] 3xl:w-[67px]"
                         alt="ProfileImgLarg"
                       />
                       <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-left w-[auto]">{`Jenny Wilson`}</Text>
