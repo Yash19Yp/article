@@ -1,36 +1,53 @@
 import React from "react";
 
-import { getArticles, getArticles1 } from "service/api";
+import { useNavigate } from "react-router-dom";
+import { getArticles, getLatest } from "service/api";
 import { Column, Row, Image, Text, Button, Input, List } from "components";
 
 const BlogPagePage = () => {
-  const [apiData1, setapiData1] = React.useState();
-  const [apiData2, setapiData2] = React.useState();
+  const [apiData6, setapiData6] = React.useState();
+  const [apiData7, setapiData7] = React.useState();
   React.useEffect(() => {
-    callApi1();
+    callApi6();
   }, []);
+  const navigate = useNavigate();
 
-  function callApi2(data) {
+  function callApi7(data) {
     const req = { params: { per_page: "3" } };
-    getArticles1(req)
+    getLatest(req)
       .then((res) => {
-        setapiData2(res);
+        setapiData7(res);
       })
       .catch((err) => {
         console.error(err);
       });
   }
-  function callApi1() {
+  function callApi6() {
     const req = { path: { id: "id" } };
     getArticles(req)
       .then((res) => {
-        setapiData1(res);
+        setapiData6(res);
 
-        callApi2(res);
+        callApi7(res);
       })
       .catch((err) => {
         console.error(err);
       });
+  }
+  function handleNavigate6() {
+    navigate("/writeondevto");
+  }
+  function handleNavigate7() {
+    navigate("/writeonmedium");
+  }
+  function handleNavigate8() {
+    navigate("/mediumprofile");
+  }
+  function handleNavigate9() {
+    navigate("/devtoprofile");
+  }
+  function handleNavigate10() {
+    navigate("/");
   }
 
   return (
@@ -45,18 +62,33 @@ const BlogPagePage = () => {
                 alt="Frame9874"
               />
               <Row className="items-center justify-center lg:mb-[6px] xl:mb-[7px] mb-[8px] 3xl:mb-[9px] lg:ml-[164px] xl:ml-[187px] ml-[210.87px] 2xl:ml-[211px] 3xl:ml-[253px] lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] w-[23%]">
-                <Text className="font-semibold lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-center text-gray_50 w-[auto]">{`Dashboard`}</Text>
-                <Text className="font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]">{`Dev.to Profile`}</Text>
-                <Text className="font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]">{`Medium Profile`}</Text>
+                <Text
+                  className="common-pointer font-semibold lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-center text-gray_50 w-[auto]"
+                  onClick={handleNavigate10}
+                >{`Dashboard`}</Text>
+                <Text
+                  className="common-pointer font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
+                  onClick={handleNavigate9}
+                >{`Dev.to Profile`}</Text>
+                <Text
+                  className="common-pointer font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
+                  onClick={handleNavigate8}
+                >{`Medium Profile`}</Text>
               </Row>
               <Row className="bg-black_900 items-center justify-center mb-[1px] lg:ml-[151px] xl:ml-[173px] ml-[195px] 3xl:ml-[234px] w-[23%]">
-                <Button className="bg-white_A700 font-medium xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[49%]">{`Write on medium`}</Button>
-                <Button className="bg-white_A700 font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[44%]">{`Write on dev.to`}</Button>
+                <Button
+                  className="common-pointer bg-white_A700 font-medium xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[49%]"
+                  onClick={handleNavigate7}
+                >{`Write on medium`}</Button>
+                <Button
+                  className="common-pointer bg-white_A700 font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[44%]"
+                  onClick={handleNavigate6}
+                >{`Write on dev.to`}</Button>
               </Row>
             </Row>
           </header>
           <Image
-            src={apiData1?.social_image}
+            src={apiData6?.social_image}
             className="lg:h-[389px] xl:h-[445px] h-[500px] 2xl:h-[501px] 3xl:h-[601px] lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] mx-[auto] object-contain rounded-radius20 w-[88%]"
             alt="Frame9881"
           />
@@ -73,21 +105,21 @@ const BlogPagePage = () => {
           </span>
         </Text>
         <Text className="font-gilroy font-semibold 3xl:ml-[103px] lg:ml-[66px] xl:ml-[76px] ml-[86px] lg:mt-[23px] xl:mt-[26px] mt-[30px] 3xl:mt-[36px] lg:text-[40px] xl:text-[46px] text-[52px] 3xl:text-[62px] text-gray_50 text-left w-[auto]">
-          {apiData1?.title}
+          {apiData6?.title}
         </Text>
         <Column className="items-center lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] lg:pl-[178px] xl:pl-[204px] pl-[230px] 3xl:pl-[276px] lg:pr-[170px] xl:pr-[194px] pr-[219px] 3xl:pr-[262px] w-[100%]">
           <Row className="font-publicsans items-start justify-start mx-[auto] w-[68%]">
             <Image
-              src={apiData1?.user?.profile_image}
+              src={apiData6?.user?.profile_image}
               className="lg:h-[55px] xl:h-[63px] h-[70px] 2xl:h-[71px] 3xl:h-[85px] object-contain rounded-radius50 lg:w-[54px] xl:w-[62px] w-[70px] 3xl:w-[84px]"
               alt="ProfileImgLarg"
             />
             <Column className="font-gilroy items-start justify-start lg:mb-[5px] xl:mb-[6px] mb-[7px] 3xl:mb-[8px] lg:ml-[12px] xl:ml-[14px] ml-[16px] 3xl:ml-[19px] mt-[11px] 3xl:mt-[13px] lg:mt-[8px] xl:mt-[9px] w-[18%]">
               <Text className="font-semibold mx-[auto] lg:text-[18px] xl:text-[21px] text-[24px] 3xl:text-[28px] text-bluegray_50 text-center w-[auto]">
-                {apiData1?.user?.name}
+                {apiData6?.user?.name}
               </Text>
               <Text className="font-normal lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] not-italic lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_100 text-center w-[auto]">
-                {apiData1?.readable_publish_date}
+                {apiData6?.readable_publish_date}
               </Text>
             </Column>
             <div className="3xl:ml-[638px] bg-transparent border-0 lg:ml-[413px] lg:my-[3px] ml-[532px] my-[4px] w-[19%] xl:ml-[473px] xl:my-[3px] input-wrap">
@@ -104,7 +136,7 @@ const BlogPagePage = () => {
             </div>
           </Row>
           <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">
-            {apiData1?.description}
+            {apiData6?.description}
           </Text>
           <Text className="font-light font-publicsans lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[21px] xl:mt-[24px] mt-[28px] 3xl:mt-[33px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">
             <span className="text-bluegray_100 font-gilroy font-medium">
@@ -161,16 +193,16 @@ const BlogPagePage = () => {
         <Column className="font-gilroy items-center lg:mt-[51px] xl:mt-[58px] mt-[66px] 3xl:mt-[79px] lg:px-[459px] xl:px-[525px] px-[591px] 3xl:px-[709px] w-[100%]">
           <Row className="items-center justify-center mx-[auto] w-[18%]">
             <Image
-              src={apiData1?.user?.profile_image}
+              src={apiData6?.user?.profile_image}
               className="lg:h-[55px] xl:h-[63px] h-[70px] 2xl:h-[71px] 3xl:h-[85px] object-contain rounded-radius50 lg:w-[54px] xl:w-[62px] w-[70px] 3xl:w-[84px]"
               alt="ProfileImgLarg"
             />
             <Column className="items-start lg:mb-[5px] xl:mb-[6px] mb-[7px] 3xl:mb-[8px] lg:ml-[12px] xl:ml-[14px] ml-[16px] 3xl:ml-[19px] mt-[11px] 3xl:mt-[13px] lg:mt-[8px] xl:mt-[9px] w-[67%]">
               <Text className="font-semibold mx-[auto] lg:text-[18px] xl:text-[21px] text-[24px] 3xl:text-[28px] text-bluegray_50 text-center w-[auto]">
-                {apiData1?.user?.name}
+                {apiData6?.user?.name}
               </Text>
               <Text className="font-normal lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] not-italic lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_100 text-left w-[auto]">
-                {apiData1?.user?.username}
+                {apiData6?.user?.username}
               </Text>
             </Column>
           </Row>
@@ -181,36 +213,36 @@ const BlogPagePage = () => {
             className="lg:gap-[18px] xl:gap-[21px] gap-[24px] 3xl:gap-[28px] grid grid-cols-3 min-h-[auto] mx-[auto] w-[75%]"
             orientation="horizontal"
           >
-            {apiData2?.map((apiData2Ele) => {
+            {apiData7?.map((apiData7Ele) => {
               return (
                 <Column className="bg-gray_900 border border-bluegray_900 border-solid items-start justify-start py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius23 w-[100%]">
                   <Column className="items-center px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
                     <Image
-                      src={apiData2Ele?.social_image}
+                      src={apiData7Ele?.social_image}
                       className="lg:h-[207px] xl:h-[236px] h-[265px] 2xl:h-[266px] 3xl:h-[319px] mx-[auto] object-contain rounded-radius12 w-[94%]"
                       alt="placeholder"
                     />
                   </Column>
                   <Text className="font-bold lg:leading-[25px] xl:leading-[29px] leading-[33.00px] 2xl:leading-[33px] 3xl:leading-[39px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[94%]">
-                    {apiData2Ele?.title}
+                    {apiData7Ele?.title}
                   </Text>
                   <Text className="font-normal lg:leading-[20px] xl:leading-[23px] leading-[26.00px] 2xl:leading-[26px] 3xl:leading-[31px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_50 text-left w-[94%]">
-                    {apiData2Ele?.description}
+                    {apiData7Ele?.description}
                   </Text>
                   <Column className="items-center lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
                     <Row className="items-center justify-between mx-[auto] w-[94%]">
                       <Row className="items-center justify-start w-[45%]">
                         <Image
-                          src={apiData2Ele?.user?.profile_image}
+                          src={apiData7Ele?.user?.profile_image}
                           className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 lg:w-[43px] xl:w-[49px] w-[56px] 3xl:w-[67px]"
                           alt="ProfileImgLarg"
                         />
                         <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-left w-[auto]">
-                          {apiData2Ele?.user?.name}
+                          {apiData7Ele?.user?.name}
                         </Text>
                       </Row>
                       <Text className="font-medium lg:ml-[58px] xl:ml-[66px] ml-[75px] 3xl:ml-[90px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-right w-[auto]">
-                        {apiData2Ele?.readable_publish_date}
+                        {apiData7Ele?.readable_publish_date}
                       </Text>
                     </Row>
                   </Column>

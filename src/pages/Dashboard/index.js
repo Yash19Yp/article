@@ -5,35 +5,35 @@ import { useNavigate } from "react-router-dom";
 import { getArticles1 } from "service/api";
 
 const DashboardPage = () => {
-  const [apiData3, setapiData3] = React.useState();
+  const [apiData8, setapiData8] = React.useState();
   React.useEffect(() => {
-    callApi3();
+    callApi8();
   }, []);
   const navigate = useNavigate();
 
-  function callApi3() {
+  function callApi8() {
     const req = { params: { per_page: "6" } };
     getArticles1(req)
       .then((res) => {
-        setapiData3(res);
+        setapiData8(res);
       })
       .catch((err) => {
         console.error(err);
       });
   }
-  function handleNavigate1() {
-    navigate("/blogpage", { state: { id: apiData3 } });
+  function handleNavigate11() {
+    navigate("/blogpage", { state: { id: apiData8 } });
   }
-  function handleNavigate5() {
+  function handleNavigate15() {
     navigate("/writeonmedium");
   }
-  function handleNavigate6() {
+  function handleNavigate16() {
     navigate("/writeondevto");
   }
-  function handleNavigate7() {
+  function handleNavigate17() {
     navigate("/devtoprofile");
   }
-  function handleNavigate8() {
+  function handleNavigate18() {
     navigate("/mediumprofile");
   }
 
@@ -44,37 +44,37 @@ const DashboardPage = () => {
           <Stack className="absolute lg:h-[1001px] xl:h-[1145px] h-[1286px] 2xl:h-[1287px] 3xl:h-[1545px] inset-[0] w-[100%]">
             <Column className="absolute bg-black_900 bottom-[0] items-center justify-start lg:pb-[52px] xl:pb-[59px] pb-[67px] 3xl:pb-[80px] lg:pt-[32px] xl:pt-[37px] pt-[42px] 3xl:pt-[50px] lg:px-[24px] xl:px-[28px] px-[32px] 3xl:px-[38px] right-[0] w-[79%]">
               <Grid className="lg:gap-[18px] xl:gap-[21px] gap-[24px] 3xl:gap-[28px] grid grid-cols-3 mx-[auto] w-[94%]">
-                {apiData3?.map((apiData3Ele) => {
+                {apiData8?.map((apiData8Ele) => {
                   return (
                     <Column
                       className="common-pointer bg-gray_900 border border-bluegray_900 border-solid items-start justify-start py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius23 w-[100%]"
-                      onClick={handleNavigate1}
+                      onClick={handleNavigate11}
                     >
                       <Column className="items-center px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
                         <Image
-                          src={apiData3Ele?.social_image}
+                          src={apiData8Ele?.social_image}
                           className="lg:h-[207px] xl:h-[236px] h-[265px] 2xl:h-[266px] 3xl:h-[319px] mx-[auto] object-contain rounded-radius12 w-[94%]"
                           alt="placeholder"
                         />
                       </Column>
                       <Text className="font-bold lg:leading-[25px] xl:leading-[29px] leading-[33.00px] 2xl:leading-[33px] 3xl:leading-[39px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[94%]">
-                        {apiData3Ele?.title}
+                        {apiData8Ele?.title}
                       </Text>
                       <Text className="font-normal lg:leading-[20px] xl:leading-[23px] leading-[26.00px] 2xl:leading-[26px] 3xl:leading-[31px] ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_50 text-left w-[94%]">
-                        {apiData3Ele?.description}
+                        {apiData8Ele?.description}
                       </Text>
                       <Column className="items-center lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
                         <Row className="items-center justify-start mx-[auto] w-[94%]">
                           <Image
-                            src={apiData3Ele?.user?.profile_image}
+                            src={apiData8Ele?.user?.profile_image}
                             className="lg:h-[44px] xl:h-[50px] h-[56px] 2xl:h-[57px] 3xl:h-[68px] object-contain rounded-radius50 lg:w-[43px] xl:w-[49px] w-[56px] 3xl:w-[67px]"
                             alt="ProfileImgLarg"
                           />
                           <Text className="font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-left w-[auto]">
-                            {apiData3Ele?.user?.name}
+                            {apiData8Ele?.user?.name}
                           </Text>
                           <Text className="font-medium lg:ml-[58px] xl:ml-[66px] ml-[75px] 3xl:ml-[90px] lg:my-[13px] xl:my-[15px] my-[17px] 3xl:my-[20px] lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-gray_50 text-right w-[auto]">
-                            {apiData3Ele?.readable_publish_date}
+                            {apiData8Ele?.readable_publish_date}
                           </Text>
                         </Row>
                       </Column>
@@ -126,21 +126,21 @@ const DashboardPage = () => {
               <Text className="font-semibold lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-center text-gray_50 w-[auto]">{`Dashboard`}</Text>
               <Text
                 className="common-pointer font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
-                onClick={handleNavigate7}
+                onClick={handleNavigate17}
               >{`Dev.to Profile`}</Text>
               <Text
                 className="common-pointer font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
-                onClick={handleNavigate8}
+                onClick={handleNavigate18}
               >{`Medium Profile`}</Text>
             </Row>
             <Row className="bg-black_900 items-center justify-center lg:ml-[320px] xl:ml-[366px] ml-[412px] 3xl:ml-[494px] w-[29%]">
               <Button
                 className="common-pointer bg-white_A700 font-medium xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[49%]"
-                onClick={handleNavigate5}
+                onClick={handleNavigate15}
               >{`Write on medium`}</Button>
               <Button
                 className="common-pointer bg-white_A700 font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[44%]"
-                onClick={handleNavigate6}
+                onClick={handleNavigate16}
               >{`Write on dev.to`}</Button>
             </Row>
           </Row>

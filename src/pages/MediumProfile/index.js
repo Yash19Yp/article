@@ -1,8 +1,52 @@
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
+import { getMe1, getPublications } from "service/api";
 import { Column, Row, Image, Text, Button, List, Input } from "components";
 
 const MediumProfilePage = () => {
+  const [apiData2, setapiData2] = React.useState();
+  const [apiData3, setapiData3] = React.useState();
+  React.useEffect(() => {
+    callApi2();
+  }, []);
+  const navigate = useNavigate();
+
+  function callApi3(data) {
+    const req = {};
+    getPublications(req)
+      .then((res) => {
+        setapiData3(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  function callApi2() {
+    const req = { headers: {} };
+    getMe1(req)
+      .then((res) => {
+        setapiData2(res);
+
+        callApi3(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  function handleNavigate2() {
+    navigate("/writeondevto");
+  }
+  function handleNavigate3() {
+    navigate("/writeonmedium");
+  }
+  function handleNavigate4() {
+    navigate("/devtoprofile");
+  }
+  function handleNavigate5() {
+    navigate("/");
+  }
+
   return (
     <>
       <Column className="bg-black_900 font-gilroy items-start justify-start mx-[auto] w-[100%]">
@@ -15,24 +59,40 @@ const MediumProfilePage = () => {
                 alt="Frame9874"
               />
               <Row className="bg-black_900 items-center justify-center lg:mb-[6px] xl:mb-[7px] mb-[8px] 3xl:mb-[9px] lg:ml-[164px] xl:ml-[187px] ml-[210.87px] 2xl:ml-[211px] 3xl:ml-[253px] lg:mt-[5px] xl:mt-[6px] mt-[7px] 3xl:mt-[8px] w-[23%]">
-                <Text className="font-medium lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]">{`Dashboard`}</Text>
-                <Text className="font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]">{`Dev.to Profile`}</Text>
+                <Text
+                  className="common-pointer font-medium lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
+                  onClick={handleNavigate5}
+                >{`Dashboard`}</Text>
+                <Text
+                  className="common-pointer font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
+                  onClick={handleNavigate4}
+                >{`Dev.to Profile`}</Text>
                 <Text className="font-semibold lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-center text-gray_50 w-[auto]">{`Medium Profile`}</Text>
               </Row>
               <Row className="bg-black_900 items-center justify-center mb-[1px] lg:ml-[150px] xl:ml-[172px] ml-[194px] 3xl:ml-[232px] w-[23%]">
-                <Button className="bg-white_A700 font-medium xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[49%]">{`Write on medium`}</Button>
-                <Button className="bg-white_A700 font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[44%]">{`Write on dev.to`}</Button>
+                <Button
+                  className="common-pointer bg-white_A700 font-medium xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[49%]"
+                  onClick={handleNavigate3}
+                >{`Write on medium`}</Button>
+                <Button
+                  className="common-pointer bg-white_A700 font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] xl:py-[10px] py-[12px] 3xl:py-[14px] lg:py-[9px] rounded-radius100 lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_901 text-center w-[44%]"
+                  onClick={handleNavigate2}
+                >{`Write on dev.to`}</Button>
               </Row>
             </Row>
           </header>
           <Column className="border border-bluegray_900 border-solid items-center justify-center lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] mx-[auto] lg:px-[177px] xl:px-[202px] px-[228px] 3xl:px-[273px] lg:py-[24px] xl:py-[28px] py-[32px] 3xl:py-[38px] rounded-radius8 w-[47%]">
             <Image
-              src={"images/img_ellipse1_1.png"}
-              className="lg:h-[123px] xl:h-[141px] h-[158px] 2xl:h-[159px] 3xl:h-[190px] mx-[auto] object-contain rounded-radius501 w-[auto]"
+              src={apiData2?.data?.imageUrl}
+              className="lg:h-[123px] xl:h-[141px] h-[158px] 2xl:h-[159px] 3xl:h-[190px] mx-[auto] object-contain lg:w-[122px] xl:w-[140px] w-[158px] 3xl:w-[189px]"
               alt="Ellipse1"
             />
-            <Text className="font-semibold lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] mx-[auto] lg:text-[28px] xl:text-[32px] text-[36px] 3xl:text-[43px] text-center text-gray_50 w-[auto]">{`Jenny Wilson`}</Text>
-            <Text className="font-medium xl:mt-[3px] lg:mt-[3px] mt-[4px] mx-[auto] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_50 text-center w-[auto]">{`@jennywilson`}</Text>
+            <Text className="font-semibold lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] mx-[auto] lg:text-[28px] xl:text-[32px] text-[36px] 3xl:text-[43px] text-center text-gray_50 w-[auto]">
+              {apiData2?.data?.name}
+            </Text>
+            <Text className="font-medium xl:mt-[3px] lg:mt-[3px] mt-[4px] mx-[auto] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_50 text-center w-[auto]">
+              {apiData2?.data?.username}
+            </Text>
           </Column>
         </Column>
         <Text className="font-semibold lg:ml-[300px] xl:ml-[343px] ml-[386px] 3xl:ml-[463px] lg:mt-[28px] xl:mt-[32px] mt-[36px] 3xl:mt-[43px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[auto]">{`04 Following`}</Text>
@@ -41,28 +101,25 @@ const MediumProfilePage = () => {
             className="gap-[0] min-h-[auto] mx-[auto] w-[47%]"
             orientation="vertical"
           >
-            <Row className="border border-bluegray_900 border-solid items-center justify-start lg:my-[6px] xl:my-[7px] my-[8px] 3xl:my-[9px] pl-[10px] 3xl:pl-[12px] lg:pl-[7px] xl:pl-[8px] lg:pr-[38px] xl:pr-[43px] pr-[49px] 3xl:pr-[58px] py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius8 w-[100%]">
-              <Image
-                src={"images/img_ellipse2.png"}
-                className="lg:h-[47px] xl:h-[54px] h-[60px] 2xl:h-[61px] 3xl:h-[73px] xl:mb-[2px] lg:mb-[2px] mb-[3px] object-contain rounded-radius501 w-[auto]"
-                alt="Ellipse2"
-              />
-              <Column className="lg:ml-[12px] xl:ml-[14px] ml-[16px] 3xl:ml-[19px] w-[80%]">
-                <Text className="font-bold lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[auto]">{`Lollypop Design`}</Text>
-                <Text className="font-normal xl:mt-[3px] lg:mt-[3px] mt-[4px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-gray_50 text-left w-[auto]">{`Dedicated Experience Design Studio. Website: lollypop.design`}</Text>
-              </Column>
-            </Row>
-            <Row className="border border-bluegray_900 border-solid items-center justify-start lg:my-[6px] xl:my-[7px] my-[8px] 3xl:my-[9px] pl-[10px] 3xl:pl-[12px] lg:pl-[7px] xl:pl-[8px] lg:pr-[35px] xl:pr-[40px] pr-[46px] 3xl:pr-[55px] py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius8 w-[100%]">
-              <Image
-                src={"images/img_ellipse2_1.png"}
-                className="lg:h-[47px] xl:h-[54px] h-[60px] 2xl:h-[61px] 3xl:h-[73px] xl:mb-[2px] lg:mb-[2px] mb-[3px] object-contain rounded-radius501 w-[auto]"
-                alt="Ellipse2"
-              />
-              <Column className="lg:ml-[12px] xl:ml-[14px] ml-[16px] 3xl:ml-[19px] w-[80%]">
-                <Text className="font-bold lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[auto]">{`FlowMapp`}</Text>
-                <Text className="font-normal xl:mt-[3px] lg:mt-[3px] mt-[4px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-gray_50 text-left w-[auto]">{`Design exceptional UX for beautiful websites and products with online`}</Text>
-              </Column>
-            </Row>
+            {apiData3?.data?.map((apiData3Ele) => {
+              return (
+                <Row className="border border-bluegray_900 border-solid items-center justify-start lg:my-[6px] xl:my-[7px] my-[8px] 3xl:my-[9px] pl-[10px] 3xl:pl-[12px] lg:pl-[7px] xl:pl-[8px] lg:pr-[38px] xl:pr-[43px] pr-[49px] 3xl:pr-[58px] py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius8 w-[100%]">
+                  <Image
+                    src={apiData3Ele?.imageUrl}
+                    className="lg:h-[47px] xl:h-[54px] h-[60px] 2xl:h-[61px] 3xl:h-[73px] xl:mb-[2px] lg:mb-[2px] mb-[3px] object-contain lg:w-[46px] xl:w-[53px] w-[60px] 3xl:w-[72px]"
+                    alt="Ellipse2"
+                  />
+                  <Column className="lg:ml-[12px] xl:ml-[14px] ml-[16px] 3xl:ml-[19px] w-[80%]">
+                    <Text className="font-bold lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[auto]">
+                      {apiData3Ele?.name}
+                    </Text>
+                    <Text className="font-normal xl:mt-[3px] lg:mt-[3px] mt-[4px] not-italic lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-gray_50 text-left w-[auto]">
+                      {apiData3Ele?.description}
+                    </Text>
+                  </Column>
+                </Row>
+              );
+            })}
           </List>
           <div className="3xl:mt-[19px] bg-transparent border-0 lg:mt-[12px] mt-[16px] w-[47%] xl:mt-[14px] input-wrap">
             <Image
