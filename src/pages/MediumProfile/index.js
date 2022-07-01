@@ -95,7 +95,7 @@ const MediumProfilePage = () => {
             </Text>
           </Column>
         </Column>
-        <Text className="font-semibold lg:ml-[300px] xl:ml-[343px] ml-[386px] 3xl:ml-[463px] lg:mt-[28px] xl:mt-[32px] mt-[36px] 3xl:mt-[43px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[auto]">{`04 Following`}</Text>
+        <Text className="font-semibold lg:ml-[300px] xl:ml-[343px] ml-[386px] 3xl:ml-[463px] lg:mt-[28px] xl:mt-[32px] mt-[36px] 3xl:mt-[43px] lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-gray_50 text-left w-[auto]">{`${apiData3?.data?.length} Following`}</Text>
         <Column className="items-center lg:mt-[12px] xl:mt-[14px] mt-[16px] 3xl:mt-[19px] w-[100%]">
           <List
             className="gap-[0] min-h-[auto] mx-[auto] w-[47%]"
@@ -121,30 +121,6 @@ const MediumProfilePage = () => {
               );
             })}
           </List>
-          <div className="3xl:mt-[19px] bg-transparent border-0 lg:mt-[12px] mt-[16px] w-[47%] xl:mt-[14px] input-wrap">
-            <Image
-              src={"images/img_ellipse_2_2.svg"}
-              className="absolute z-[1] h-[60px] left-[10.00px] bg-transparent border-0 lg:h-[47px] lg:left-[7px] xl:h-[54px] xl:left-[8px] 2xl:h-[61px] 2xl:left-[10px] 3xl:h-[73px] 3xl:left-[12px] my-[auto] inset-y-[0]"
-              alt="Ellipse 2"
-            />
-            <Input
-              className="placeholder:bg-transparent bg-transparent border border-bluegray_900 border-solid font-bold lg:pl-[62px] xl:pl-[71px] pl-[80.00px] 2xl:pl-[80px] 3xl:pl-[96px] lg:py-[12px] xl:py-[14px] py-[16.5px] 2xl:py-[16px] 3xl:py-[19px] rounded-radius8 lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] placeholder:text-gray_50 text-gray_50 text-left w-[100%]"
-              name="Group48"
-              placeholder={`Google design`}
-            ></Input>
-          </div>
-          <div className="3xl:mt-[19px] bg-transparent border-0 lg:mt-[12px] mt-[16px] w-[47%] xl:mt-[14px] input-wrap">
-            <Image
-              src={"images/img_ellipse_2_3.svg"}
-              className="absolute z-[1] h-[60px] left-[10.00px] bg-transparent border-0 lg:h-[47px] lg:left-[7px] xl:h-[54px] xl:left-[8px] 2xl:h-[61px] 2xl:left-[10px] 3xl:h-[73px] 3xl:left-[12px] my-[auto] inset-y-[0]"
-              alt="Ellipse 2"
-            />
-            <Input
-              className="placeholder:bg-transparent bg-transparent border border-bluegray_900 border-solid font-bold lg:pl-[62px] xl:pl-[71px] pl-[80.00px] 2xl:pl-[80px] 3xl:pl-[96px] lg:py-[12px] xl:py-[14px] py-[16.5px] 2xl:py-[16px] 3xl:py-[19px] rounded-radius8 lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] placeholder:text-gray_50 text-gray_50 text-left w-[100%]"
-              name="Group47"
-              placeholder={`Muzli - Design Inspiration`}
-            ></Input>
-          </div>
           <footer className="xl:mt-[106px] mt-[120px] 3xl:mt-[144px] lg:mt-[93px] w-[100%]">
             <Column className="bg-gray_902 items-start justify-center lg:py-[23px] xl:py-[26px] py-[30px] 3xl:py-[36px] w-[100%]">
               <Column className="items-center lg:pl-[115px] xl:pl-[132px] pl-[148.87px] 2xl:pl-[148px] 3xl:pl-[178px] lg:pr-[129px] xl:pr-[147px] pr-[166px] 3xl:pr-[199px] w-[100%]">
