@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getArticles, getLatest } from "service/api";
 import { Column, Row, Image, Text, Button, Input, List } from "components";
 
@@ -10,6 +10,8 @@ const BlogPagePage = () => {
   React.useEffect(() => {
     callApi6();
   }, []);
+
+  const location = useLocation();
   const navigate = useNavigate();
 
   function callApi7(data) {
@@ -23,7 +25,7 @@ const BlogPagePage = () => {
       });
   }
   function callApi6() {
-    const req = { path: { id: "id" } };
+    const req = { path: { id: location?.state?.id } };
     getArticles(req)
       .then((res) => {
         setapiData6(res);
@@ -122,7 +124,7 @@ const BlogPagePage = () => {
                 {apiData6?.readable_publish_date}
               </Text>
             </Column>
-            <div className="3xl:ml-[638px] bg-transparent border-0 lg:ml-[413px] lg:my-[3px] ml-[532px] my-[4px] w-[19%] xl:ml-[473px] xl:my-[3px] input-wrap">
+            {/* <div className="3xl:ml-[638px] bg-transparent border-0 lg:ml-[413px] lg:my-[3px] ml-[532px] my-[4px] w-[19%] xl:ml-[473px] xl:my-[3px] input-wrap">
               <Image
                 src={"images/img_vector.svg"}
                 className="absolute z-[1] left-[31.50px] bg-transparent border-0 lg:left-[24px] xl:left-[28px] 2xl:left-[31px] 3xl:left-[37px] my-[auto] inset-y-[0]"
@@ -133,62 +135,21 @@ const BlogPagePage = () => {
                 name="Group46"
                 placeholder={`Share Now`}
               ></Input>
-            </div>
+            </div> */}
           </Row>
           <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[43px] xl:mt-[49px] mt-[56px] 3xl:mt-[67px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">
-            {apiData6?.description}
+            <div dangerouslySetInnerHTML={{ __html: apiData6?.body_html }} />
           </Text>
-          <Text className="font-light font-publicsans lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[21px] xl:mt-[24px] mt-[28px] 3xl:mt-[33px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">
-            <span className="text-bluegray_100 font-gilroy font-medium">
-              <>{`The game’s not big enough unless it scares you a little. Wait a minute – you’ve been declared dead. You can’t give `}</>
-            </span>
-            <span className="text-bluegray_100 font-gilroy font-medium">
-              <>{`orders around`}</>
-            </span>
-            <span className="text-bluegray_100 font-gilroy font-medium">
-              <>{` here. I’ll alert the crew. What? We’re not at all alike! Flair is what marks the difference between artistry and mere competence.`}</>
-            </span>
-          </Text>
-          <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[21px] xl:mt-[24px] mt-[28px] 3xl:mt-[33px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">{`Did you come here for something in particular or just general Riker-bashing? And blowing into maximum warp speed, you appeared for an instant to be in two places at once. We have a saboteur aboard.`}</Text>
-          <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[21px] xl:mt-[24px] mt-[28px] 3xl:mt-[33px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">{`Could someone survive inside a transporter buffer for 75 years? Fate. It protects fools, little children, and ships named “Enterprise.”`}</Text>
-          <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[21px] xl:mt-[24px] mt-[28px] 3xl:mt-[33px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">{`Did you come here for something in particular or just general Riker-bashing? And blowing into maximum warp speed, you appeared for an instant to be in two places at once. We have a saboteur aboard. We know you’re dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Could someone survive inside a transporter buffer for 75 years? Fate. It protects fools, little children, and ships named “Enterprise.”`}</Text>
-          <Row className="lg:gap-[22px] xl:gap-[25px] gap-[29px] 3xl:gap-[34px] grid grid-cols-2 items-center justify-center lg:mt-[38px] xl:mt-[44px] mt-[50px] 3xl:mt-[60px] mx-[auto] w-[68%]">
-            <Image
-              src={"images/img_rectangle23.png"}
-              className="lg:h-[260px] xl:h-[298px] h-[334px] 2xl:h-[335px] 3xl:h-[402px] object-contain rounded-radius15 w-[100%]"
-              alt="Rectangle23"
-            />
-            <Image
-              src={"images/img_rectangle24.png"}
-              className="lg:h-[260px] xl:h-[298px] h-[334px] 2xl:h-[335px] 3xl:h-[402px] object-contain rounded-radius15 w-[100%]"
-              alt="Rectangle24"
-            />
-          </Row>
-          <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[38px] xl:mt-[44px] mt-[50px] 3xl:mt-[60px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">{`What’s a knock-out like you doing in a computer-generated gin joint like this? But the probability of making a six is no greater than that of rolling a seven. I guess it’s better to be lucky than good.`}</Text>
-          <Text className="font-gilroy font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] lg:mt-[21px] xl:mt-[24px] mt-[28px] 3xl:mt-[33px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">{`Damage report! I’ve had twelve years to think about it. And if I had it to do over again, I would have grabbed the phaser and pointed it at you instead of them. Some days you get the bear, and some days the bear gets you. Ensign Babyface! I’m afraid I still don’t understand, sir. Mr. Crusher, ready a collision course with the Borg ship. Yesterday I did not know how to eat gagh. You’re going to be an interesting companion.`}</Text>
-        </Column>
-        <Row className="font-gilroy items-center justify-start lg:ml-[211px] xl:ml-[241px] ml-[272px] 3xl:ml-[326px] lg:mt-[15px] xl:mt-[17px] mt-[20px] 3xl:mt-[24px] w-[34%]">
-          <div className="bg-bluegray_100 h-[10px] 2xl:h-[11px] 3xl:h-[13px] lg:h-[8px] xl:h-[9px] lg:my-[10px] xl:my-[11px] my-[13px] 3xl:my-[15px] rounded-radius501 w-[10px] 3xl:w-[12px] lg:w-[7px] xl:w-[8px]"></div>
-          <Text className="font-medium lg:ml-[11px] xl:ml-[13px] ml-[15px] 3xl:ml-[18px] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[auto]">{`Lorem ipsum dolor sit amet.`}</Text>
-        </Row>
-        <Row className="font-gilroy items-center justify-start lg:ml-[211px] xl:ml-[241px] ml-[272px] 3xl:ml-[326px] w-[34%]">
-          <div className="bg-bluegray_100 h-[10px] 2xl:h-[11px] 3xl:h-[13px] lg:h-[8px] xl:h-[9px] lg:my-[10px] xl:my-[11px] my-[13px] 3xl:my-[15px] rounded-radius501 w-[10px] 3xl:w-[12px] lg:w-[7px] xl:w-[8px]"></div>
-          <Text className="font-medium lg:ml-[11px] xl:ml-[13px] ml-[15px] 3xl:ml-[18px] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[auto]">{`At vero eos et accusamus et iusto odio.`}</Text>
-        </Row>
-        <Row className="font-gilroy items-center justify-start lg:ml-[211px] xl:ml-[241px] ml-[272px] 3xl:ml-[326px] w-[34%]">
-          <div className="bg-bluegray_100 h-[10px] 2xl:h-[11px] 3xl:h-[13px] lg:h-[8px] xl:h-[9px] lg:my-[10px] xl:my-[11px] my-[13px] 3xl:my-[15px] rounded-radius501 w-[10px] 3xl:w-[12px] lg:w-[7px] xl:w-[8px]"></div>
-          <Text className="font-medium lg:ml-[11px] xl:ml-[13px] ml-[15px] 3xl:ml-[18px] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[auto]">{`Excepteur sint occaecat cupidatat non proident.`}</Text>
-        </Row>
-        <Column className="font-gilroy items-center lg:mt-[21px] xl:mt-[24px] mt-[28px] 3xl:mt-[33px] lg:pl-[188px] xl:pl-[215px] pl-[242px] 3xl:pl-[290px] lg:pr-[170px] xl:pr-[194px] pr-[219px] 3xl:pr-[262px] w-[100%]">
-          <Text className="font-medium lg:leading-[27px] xl:leading-[31px] leading-[35.00px] 2xl:leading-[35px] 3xl:leading-[42px] mx-[auto] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_100 text-left w-[68%]">{`Could someone survive inside a transporter buffer for 75 years? Fate. It protects fools, little children, and ships named “Enterprise.”`}</Text>
         </Column>
         <Text className="font-gilroy font-medium lg:ml-[188px] xl:ml-[215px] ml-[242px] 3xl:ml-[290px] lg:mt-[31px] xl:mt-[35px] mt-[40px] 3xl:mt-[48px] lg:text-[18px] xl:text-[21px] text-[24px] 3xl:text-[28px] text-bluegray_50 text-left w-[auto]">{`Tags`}</Text>
         <Row className="font-gilroy items-center justify-start lg:ml-[188px] xl:ml-[215px] ml-[242px] 3xl:ml-[290px] lg:mt-[11px] xl:mt-[13px] mt-[15px] 3xl:mt-[18px] w-[35%]">
-          <Button className="bg-gray_901 font-medium py-[10.54px] 2xl:py-[10px] 3xl:py-[12px] lg:py-[8px] xl:py-[9px] rounded-radius50 lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-center w-[19%]">{`Writing`}</Button>
-          <Button className="bg-gray_901 font-medium lg:ml-[13px] xl:ml-[15px] ml-[17px] 3xl:ml-[20px] py-[10.54px] 2xl:py-[10px] 3xl:py-[12px] lg:py-[8px] xl:py-[9px] rounded-radius50 lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-center w-[19%]">{`Tutorial`}</Button>
-          <Button className="bg-gray_901 font-medium lg:ml-[13px] xl:ml-[15px] ml-[17px] 3xl:ml-[20px] py-[10.54px] 2xl:py-[10px] 3xl:py-[12px] lg:py-[8px] xl:py-[9px] rounded-radius50 lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-center w-[19%]">{`How to`}</Button>
-          <Button className="bg-gray_901 font-medium lg:ml-[11px] xl:ml-[13px] ml-[15px] 3xl:ml-[18px] py-[10.54px] 2xl:py-[10px] 3xl:py-[12px] lg:py-[8px] xl:py-[9px] rounded-radius50 lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-center w-[15%]">{`Book`}</Button>
-          <Button className="bg-gray_901 font-medium lg:ml-[12px] xl:ml-[14px] ml-[16px] 3xl:ml-[19px] py-[10.54px] 2xl:py-[10px] 3xl:py-[12px] lg:py-[8px] xl:py-[9px] rounded-radius50 lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-center w-[15%]">{`2020`}</Button>
+          {apiData6?.tags.map((tag) => {
+            return (
+              <Button className="bg-gray_901 font-medium lg:ml-[13px] xl:ml-[15px] ml-[17px] 3xl:ml-[20px] py-[10.54px] 2xl:py-[10px] 3xl:py-[12px] lg:py-[8px] xl:py-[9px] rounded-radius50 lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-center w-[30%]">
+                {tag}
+              </Button>
+            );
+          })}{" "}
         </Row>
         <Column className="font-gilroy items-center lg:mt-[51px] xl:mt-[58px] mt-[66px] 3xl:mt-[79px] lg:px-[459px] xl:px-[525px] px-[591px] 3xl:px-[709px] w-[100%]">
           <Row className="items-center justify-center mx-[auto] w-[18%]">
