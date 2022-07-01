@@ -6,20 +6,34 @@ import { useNavigate } from "react-router-dom";
 import useForm from "simple-react-hook-form";
 import * as Content_format from "constants/Content_format";
 import { ToastContainer, toast } from "react-toastify";
-import { Column, Row, Text, Button, Input, SelectBox } from "components";
+import {
+  Column,
+  Row,
+  Text,
+  Button,
+  Input,
+  SelectBox,
+  TextArea,
+} from "components";
 
 const WriteonmediumPage = () => {
   const [apiData, setapiData] = React.useState();
-  const form = useForm({ title: "", content: "", canonicalUrl: "", tags: "" });
+  const form = useForm({
+    title: "",
+    content: "",
+    canonicalUrl: "",
+    contentFormat: "",
+  });
   const navigate = useNavigate();
 
   function callApi(data) {
-    const req = { data: { ...data, contentFormat: Content_format.html } };
+    console.log("data", data);
+    const req = { data: { ...data } };
     postPosts(req)
       .then((res) => {
         setapiData(res);
-
         toast.success("Article Posted Successfully.");
+        navigate("/");
       })
       .catch((err) => {
         console.error(err);
@@ -58,18 +72,20 @@ const WriteonmediumPage = () => {
               name="Group59"
               placeholder={`Title`}
             ></Input>
-            <Input
-              className="bg-transparent border-0 font-medium lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_600 text-left w-[100%]"
-              onChange={(e) => {
-                form.handleChange("content", e.target.value);
-              }}
-              value={form?.values?.content}
-              name="Tellyourstory"
-              placeholder={""}
-            ></Input>
+            <Column className="lg:mt-[18px] xl:mt-[21px] mt-[24px] 3xl:mt-[28px] w-[100%]">
+              <TextArea
+                className="bg-transparent border border-bluegray_700 border-solid font-medium lg:pb-[535px] xl:pb-[612px] pb-[688px] 3xl:pb-[826px] lg:pl-[24px] xl:pl-[28px] pl-[32px] 3xl:pl-[38px] lg:pr-[575px] xl:pr-[658px] pr-[740px] 3xl:pr-[888px] lg:pt-[24px] xl:pt-[28px] pt-[32px] 3xl:pt-[38px] rounded-radius8 lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] text-bluegray_600 text-left w-[100%]"
+                name="Tellyourstory"
+                onChange={(e) => {
+                  form.handleChange("content", e.target.value);
+                }}
+                value={form?.values?.content}
+                placeholder={"Tell your Story ...."}
+              ></TextArea>
+            </Column>
           </Column>
           <Column className="items-start justify-start lg:mb-[297px] xl:mb-[340px] mb-[383px] 3xl:mb-[459px] lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] w-[31%]">
-            <Text className="font-medium lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-left w-[auto]">{`Add tags`}</Text>
+            {/* <Text className="font-medium lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-left w-[auto]">{`Add tags`}</Text>
             <Input
               className="placeholder:bg-transparent bg-transparent border border-bluegray_700 border-solid font-medium lg:mt-[6px] xl:mt-[7px] mt-[8px] 3xl:mt-[9px] lg:pb-[32px] xl:pb-[36px] pb-[41.5px] 2xl:pb-[41px] 3xl:pb-[49px] lg:pl-[18px] xl:pl-[21px] pl-[24px] 3xl:pl-[28px] lg:pt-[23px] xl:pt-[27px] pt-[30.5px] 2xl:pt-[30px] 3xl:pt-[36px] rounded-radius8 lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] placeholder:text-bluegray_600 text-bluegray_600 text-left w-[100%]"
               onChange={(e) => {
@@ -78,7 +94,7 @@ const WriteonmediumPage = () => {
               value={form?.values?.tags}
               name="Group62"
               placeholder={`Add tags`}
-            ></Input>
+            ></Input> */}
             <Text className="font-medium lg:mt-[18px] xl:mt-[21px] mt-[24px] 3xl:mt-[28px] lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_50 text-left w-[auto]">{`Canonical link`}</Text>
             <Input
               className="placeholder:bg-transparent bg-transparent border border-bluegray_700 border-solid font-medium lg:mt-[6px] xl:mt-[7px] mt-[8px] 3xl:mt-[9px] lg:pl-[18px] xl:pl-[21px] pl-[24px] 3xl:pl-[28px] lg:py-[14px] xl:py-[16px] py-[18.5px] 2xl:py-[18px] 3xl:py-[22px] rounded-radius8 lg:text-[15px] xl:text-[17px] text-[20px] 3xl:text-[24px] placeholder:text-bluegray_600 text-bluegray_600 text-left w-[100%]"
@@ -93,9 +109,13 @@ const WriteonmediumPage = () => {
               className="bg-transparent border border-bluegray_700 border-solid font-medium lg:mt-[18px] xl:mt-[21px] mt-[24px] 3xl:mt-[28px] lg:pl-[18px] xl:pl-[21px] pl-[24px] 3xl:pl-[28px] lg:py-[16px] xl:py-[19px] py-[21.5px] 2xl:py-[21px] 3xl:py-[25px] rounded-radius8 lg:text-[14px] xl:text-[16px] text-[18px] 3xl:text-[21px] text-bluegray_600 text-left w-[100%]"
               placeholderClassName="bg-transparent text-bluegray_600"
               name="Group65"
+              onChange={(e) => {
+                form.handleChange("contentFormat", e);
+              }}
+              value={form?.values?.contentFormat}
               placeholder={`Select content format`}
               isSearchable={true}
-              isMulti={true}
+              // isMulti={true}
             ></SelectBox>
           </Column>
         </Row>
