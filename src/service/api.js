@@ -32,7 +32,7 @@ export const postPosts = ({
   path = {},
 } = {}) => {
   return defaultAxios({
-    url: `https://api.medium.com/v1/users/1c328e6d786d4f06a1f6810221322ce0bdd590aaf04361857b0b0bd3a0e9613de/posts`,
+    url: `https://cors-anywhere.herokuapp.com/https://api.medium.com/v1/users/1c328e6d786d4f06a1f6810221322ce0bdd590aaf04361857b0b0bd3a0e9613de/posts`,
     method: "post",
     params,
     headers: {
@@ -53,7 +53,7 @@ export const postArticles = ({
   path = {},
 } = {}) => {
   return defaultAxios({
-    url: `https://dev.to/api/articles`,
+    url: `https://cors-anywhere.herokuapp.com/https://dev.to/api/articles`,
     method: "post",
     params,
     headers: {
