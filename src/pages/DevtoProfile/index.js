@@ -34,8 +34,8 @@ const DevtoProfilePage = () => {
         console.error(err);
       });
   }
-  function handleNavigate1() {
-    navigate("/blogpage", { state: { id: apiData5?.response } });
+  function handleNavigate1(id) {
+    navigate("/blogpage", { state: { id: id } });
   }
   function handleNavigate12() {
     navigate("/writeondevto");
@@ -123,7 +123,7 @@ const DevtoProfilePage = () => {
               return (
                 <Row
                   className="common-pointer bg-gray_900 border border-bluegray_900 border-solid items-center justify-start lg:my-[6px] xl:my-[7px] my-[8px] 3xl:my-[9px] pl-[10px] 3xl:pl-[12px] lg:pl-[7px] xl:pl-[8px] lg:pr-[16px] xl:pr-[18px] pr-[21px] 3xl:pr-[25px] py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius8 w-[100%]"
-                  onClick={handleNavigate1}
+                  onClick={() => handleNavigate1(apiData5Ele?.id)}
                 >
                   <Image
                     src={apiData5Ele?.cover_image}
