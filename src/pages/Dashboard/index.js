@@ -21,8 +21,8 @@ const DashboardPage = () => {
         console.error(err);
       });
   }
-  function handleNavigate11() {
-    navigate("/blogpage", { state: { id: apiData8 } });
+  function handleNavigate11(id) {
+    navigate("/blogpage", { state: { id: id } });
   }
   function handleNavigate15() {
     navigate("/writeonmedium");
@@ -48,7 +48,7 @@ const DashboardPage = () => {
                   return (
                     <Column
                       className="common-pointer bg-gray_900 border border-bluegray_900 border-solid items-start justify-start py-[10px] 3xl:py-[12px] lg:py-[7px] xl:py-[8px] rounded-radius23 w-[100%]"
-                      onClick={handleNavigate11}
+                      onClick={() => handleNavigate11(apiData8Ele?.id)}
                     >
                       <Column className="items-center px-[10px] 3xl:px-[12px] lg:px-[7px] xl:px-[8px] w-[100%]">
                         <Image
