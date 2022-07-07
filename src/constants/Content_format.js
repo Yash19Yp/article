@@ -1,1 +1,2 @@
-export const Content_format = { html: "html", markdown: "markdown" };
+export const publishStatus = "public";
+export const published = true;

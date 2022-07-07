@@ -12,10 +12,10 @@ import { List } from "./List";
 import { Radio } from "./Radio";
 import { RadioGroup } from "./RadioGroup";
 import { Row } from "./Row";
-import { SelectBox } from "./SelectBox";
 import { Stack } from "./Stack";
 import { Text } from "./Text";
 import { TextArea } from "./TextArea";
+import { SelectBox } from "./SelectBox";
 export {
   Button,
   CheckBox,
@@ -31,8 +31,8 @@ export {
   Radio,
   RadioGroup,
   Row,
-  SelectBox,
   Stack,
   Text,
   TextArea,
+  SelectBox,
 };

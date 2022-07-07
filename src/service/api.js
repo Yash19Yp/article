@@ -11,6 +11,33 @@ defaultAxios.interceptors.response.use(
   }
 );
 
+export const postArticles = ({
+  data = {},
+  headers = {},
+  params = {},
+  path = {},
+} = {}) => {
+  return defaultAxios({
+    url: `https://dev.to/api/articles`,
+    method: "post",
+    params,
+    headers: {
+      "Content-Type": "application/json",
+      "api-key": "Fq23mfYKewnXT6wXoAcR26mJ",
+      ...headers,
+    },
+    data: {
+      article: {
+        title: "Title",
+        body_markdown: "Body",
+        published: true,
+        tags: "discuss",
+        canonical_url: "",
+      },
+      ...data,
+    },
+  });
+};
 export const getMe = ({
   data = {},
   headers = {},
@@ -48,33 +75,6 @@ export const postPosts = ({
       canonicalUrl: "http://jamietalbot.com/posts/liverpool-fc",
       tags: "football",
       publishStatus: "public",
-      ...data,
-    },
-  });
-};
-export const postArticles = ({
-  data = {},
-  headers = {},
-  params = {},
-  path = {},
-} = {}) => {
-  return defaultAxios({
-    url: `https://dev.to/api/articles`,
-    method: "post",
-    params,
-    headers: {
-      "Content-Type": "application/json",
-      "api-key": "Fq23mfYKewnXT6wXoAcR26mJ",
-      ...headers,
-    },
-    data: {
-      article: {
-        title: "Title",
-        body_markdown: "Body",
-        published: true,
-        tags: "discuss",
-        canonical_url: "",
-      },
       ...data,
     },
   });
@@ -168,7 +168,7 @@ export const getArticles1 = ({
   return defaultAxios({
     url: `https://dev.to/api/articles`,
     method: "get",
-    params: { per_page: "6", ...params },
+    params: { per_page: "2", ...params },
     headers,
     data,
   });
