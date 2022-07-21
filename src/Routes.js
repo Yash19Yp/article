@@ -5,6 +5,7 @@ import MediumProfile from "pages/MediumProfile";
 import BlogPage from "pages/BlogPage";
 import DevtoProfile from "pages/DevtoProfile";
 import Dashboard from "pages/Dashboard";
+import Tagspost from "pages/tagspost";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "pages/Home";
 import NotFound from "pages/NotFound";
@@ -14,6 +15,7 @@ const ProjectRoutes = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/tags" element={<Tagspost />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/devtoprofile" element={<DevtoProfile />} />
         <Route path="/blogpage" element={<BlogPage />} />
