@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Column, Stack, Grid, Image, Text, Row, Button } from "components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getArticles1 } from "service/api";
 
 const DashboardPage = () => {
@@ -9,10 +9,12 @@ const DashboardPage = () => {
   React.useEffect(() => {
     callApi8();
   }, []);
+
+  const location = useLocation();
   const navigate = useNavigate();
 
   function callApi8() {
-    const req = { params: { per_page: "6" } };
+    const req = { params: { tag: location?.state?.tag } };
     getArticles1(req)
       .then((res) => {
         setapiData8(res);
@@ -23,9 +25,6 @@ const DashboardPage = () => {
   }
   function handleNavigate11(id) {
     navigate("/blogpage", { state: { id: id } });
-  }
-  function handleNavigate19(tag) {
-    navigate("/tags", { state: { tag: tag } });
   }
   function handleNavigate15() {
     navigate("/writeonmedium");
@@ -39,14 +38,18 @@ const DashboardPage = () => {
   function handleNavigate18() {
     navigate("/mediumprofile");
   }
+  function handleNavigate10() {
+    navigate("/");
+  }
 
   return (
     <>
       <Column className="bg-black_900 font-gilroy mx-[auto] w-[100%]">
         <Stack className="lg:h-[1001px] xl:h-[1145px] h-[1286px] 2xl:h-[1287px] 3xl:h-[1545px] w-[100%]">
           <Stack className="absolute lg:h-[1001px] xl:h-[1145px] h-[1286px] 2xl:h-[1287px] 3xl:h-[1545px] inset-[0] w-[100%]">
-            <Column className="absolute bg-black_900 bottom-[0] items-center justify-start lg:pb-[52px] xl:pb-[59px] pb-[67px] 3xl:pb-[80px] lg:pt-[32px] xl:pt-[37px] pt-[42px] 3xl:pt-[50px] lg:px-[24px] xl:px-[28px] px-[32px] 3xl:px-[38px] right-[0] w-[79%]">
-              <Grid className="lg:gap-[18px] xl:gap-[21px] gap-[24px] 3xl:gap-[28px] grid grid-cols-3 mx-[auto] w-[94%]">
+            <Column >
+              <Text className="font-gilroy font-semibold lg:ml-[141px] xl:ml-[161px] ml-[182px] 3xl:ml-[218px] mt-[50px] 3xl:mt-[13px] lg:mt-[8px] xl:mt-[70px] lg:text-[21px] xl:text-[24px] text-[28px] 3xl:text-[33px] text-gray_50 text-left w-[auto]">{`Articles of ${location?.state?.tag}`}</Text>
+              <Grid className="lg:gap-[18px] xl:gap-[21px] gap-[24px] 3xl:gap-[28px] grid grid-cols-3 mx-[auto] w-[75%]">
                 {apiData8?.map((apiData8Ele) => {
                   return (
                     <Column
@@ -86,82 +89,18 @@ const DashboardPage = () => {
                 })}
               </Grid>
             </Column>
-            <Column className="absolute bg-black_900 border border-bluegray_900 border-solid font-opensans items-start justify-start left-[0] lg:pb-[517px] xl:pb-[591px] pb-[665px] 3xl:pb-[798px] lg:pt-[18px] xl:pt-[21px] pt-[24px] 3xl:pt-[28px] top-[0] w-[21%]">
-              <Column className="items-center lg:px-[39px] xl:px-[45px] px-[50.87px] 2xl:px-[50px] 3xl:px-[61px] w-[100%]">
-                <Image
-                  src={"images/img_frame9873.svg"}
-                  className="lg:h-[32px] xl:h-[37px] h-[41px] 2xl:h-[42px] 3xl:h-[50px] mx-[auto] object-contain w-[66%]"
-                  alt="Frame9873"
-                />
-              </Column>
-              <Text className="font-semibold lg:ml-[14px] xl:ml-[16px] ml-[18.5px] 2xl:ml-[18px] 3xl:ml-[22px] lg:mt-[42px] xl:mt-[48px] mt-[54px] 3xl:mt-[64px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-gray_50 text-left w-[auto]">{`Recommended Topics`}</Text>
-              <Column className="font-gilroy mt-[10px] 3xl:mt-[12px] lg:mt-[7px] xl:mt-[8px] w-[100%]">
-                <Row className="items-center justify-start lg:pl-[14px] xl:pl-[16px] pl-[18.5px] 2xl:pl-[18px] 3xl:pl-[22px] 3xl:pr-[100px] lg:pr-[64px] xl:pr-[74px] pr-[83.5px] 2xl:pr-[83px] w-[100%]">
-                  <Button
-                    className="bg-gray_901 font-medium lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[42%]"
-                    onClick={() => handleNavigate19("react")}
-                  >{`React`}</Button>
-                  <Button
-                    className="bg-gray_901 font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[42%]"
-                    onClick={() => handleNavigate19("javascript")}
-                  >{`javascript`}</Button>
-                </Row>
-                <Row className="items-center justify-start lg:mt-[6px] xl:mt-[7px] mt-[8px] 3xl:mt-[9px] lg:pl-[13px] xl:pl-[15px] pl-[17.5px] 2xl:pl-[17px] 3xl:pl-[21px] lg:pr-[46px] xl:pr-[52px] pr-[59.5px] 2xl:pr-[59px] 3xl:pr-[71px] w-[100%]">
-                  <Button
-                    className="bg-gray_901 font-medium lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[42%]"
-                    onClick={() => handleNavigate19("flutter")}
-                  >{`Flutter`}</Button>
-                  <Button
-                    className="bg-gray_901 font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[30%]"
-                    onClick={() => handleNavigate19("frontend")}
-                  >{`Frontend`}</Button>
-                </Row>
-                <Row className="items-center justify-start lg:mt-[6px] xl:mt-[7px] mt-[8px] 3xl:mt-[9px] lg:pl-[13px] xl:pl-[15px] pl-[17.5px] 2xl:pl-[17px] 3xl:pl-[21px] lg:pr-[47px] xl:pr-[53px] pr-[60.5px] 2xl:pr-[60px] 3xl:pr-[72px] w-[100%]">
-                  <Button
-                    className="bg-gray_901 font-medium lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[59%]"
-                    onClick={() => handleNavigate19("backend")}
-                  >{`Backend`}</Button>
-                  <Button
-                    className="bg-gray_901 font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[50%]"
-                    onClick={() => handleNavigate19("webdev")}
-                  >{`Web Development`}</Button>
-                </Row>
-                <Row className="items-center justify-start lg:mt-[6px] xl:mt-[7px] mt-[8px] 3xl:mt-[9px] lg:px-[13px] xl:px-[15px] px-[17.5px] 2xl:px-[17px] 3xl:px-[21px] w-[100%]">
-                  <Button
-                    className="bg-gray_901 font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[40%]"
-                    onClick={() => handleNavigate19("programming")}
-                  >{`Programming`}</Button>
-                  <Button
-                    className="bg-gray_901 font-medium ml-[10px] 3xl:ml-[12px] lg:ml-[7px] xl:ml-[8px] lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[34%]"
-                    onClick={() => handleNavigate19("python")}
-                  >{`Python`}</Button>
-                </Row>
-                <Row className="items-center justify-start lg:mt-[6px] xl:mt-[7px] mt-[8px] 3xl:mt-[9px] lg:pl-[13px] xl:pl-[15px] pl-[17.5px] 2xl:pl-[17px] 3xl:pl-[21px] lg:pr-[63px] xl:pr-[72px] pr-[81.5px] 2xl:pr-[81px] 3xl:pr-[97px] w-[100%]">
-                  <Button
-                    className="bg-gray_901 font-medium lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[42%]"
-                    onClick={() => handleNavigate19("css")}
-                  >{`Css`}</Button>
-                  <Button
-                    className="bg-gray_901 font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[42%]"
-                    onClick={() => handleNavigate19("devops")}
-                  >{`devops`}</Button>
-                </Row>
-                <Row className="items-center justify-start lg:mt-[6px] xl:mt-[7px] mt-[8px] 3xl:mt-[9px] lg:pl-[14px] xl:pl-[16px] pl-[18.5px] 2xl:pl-[18px] 3xl:pl-[22px] lg:pr-[105px] xl:pr-[120px] pr-[135.5px] 2xl:pr-[135px] 3xl:pr-[162px] w-[100%]">
-                  <Button
-                    className="bg-gray_901 font-medium lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[42%]"
-                    onClick={() => handleNavigate19("html")}
-                  >{`html`}</Button>
-                  <Button
-                    className="bg-gray_901 font-medium lg:ml-[6px] xl:ml-[7px] ml-[8px] 3xl:ml-[9px] lg:py-[5px] xl:py-[6px] py-[7px] 3xl:py-[8px] rounded-radius100 lg:text-[10px] xl:text-[12px] text-[14px] 3xl:text-[16px] text-bluegray_50 text-center w-[42%]"
-                    onClick={() => handleNavigate19("aws")}
-                  >{`aws`}</Button>
-                </Row>
-              </Column>
-            </Column>
           </Stack>
-          <Row className="absolute bg-black_900 border border-bluegray_900 border-solid items-center justify-between lg:pb-[14px] xl:pb-[16px] pb-[18px] 3xl:pb-[21px] xl:pl-[28px] pl-[32px] 3xl:pl-[38px] xl:pr-[27px] pr-[31px] 3xl:pr-[37px] lg:pt-[13px] xl:pt-[15px] pt-[17px] 3xl:pt-[20px] lg:px-[24px] right-[0] top-[0] w-[79%]">
+          <Row className="absolute bg-black_900 border border-bluegray_900 border-solid items-center justify-between xl:pl-[28px] pl-[32px] 3xl:pl-[38px] xl:pr-[27px] pr-[31px] 3xl:pr-[37px] lg:pt-[13px] xl:pt-[15px] pt-[17px] 3xl:pt-[20px] lg:px-[24px] right-[0] top-[0] w-[100%]">
+            <Image
+              src={"images/img_frame9873.svg"}
+              className="lg:h-[32px] xl:h-[37px] h-[41px] 2xl:h-[42px] 3xl:h-[50px] object-contain w-[14%]"
+              alt="Frame9873"
+            />
             <Row className="bg-black_900 items-center justify-start lg:my-[5px] xl:my-[6px] my-[7px] 3xl:my-[8px] w-[29%]">
-              <Text className="font-semibold lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-center text-gray_50 w-[auto]">{`Dashboard`}</Text>
+              <Text
+                 className="common-pointer ml-5 font-semibold lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-center text-gray_50 w-[auto]"
+                 onClick={handleNavigate10}
+              >{`Dashboard`}</Text>
               <Text
                 className="common-pointer font-medium lg:ml-[18px] xl:ml-[21px] ml-[24px] 3xl:ml-[28px] lg:text-[12px] xl:text-[14px] text-[16px] 3xl:text-[19px] text-bluegray_300 text-center w-[auto]"
                 onClick={handleNavigate17}
