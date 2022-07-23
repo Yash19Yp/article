@@ -1,3 +1,29 @@
+# Figma link
+
+https://www.figma.com/file/uF8m8LDETEocrzJVEUOLSE/Article-Web?node-id=0%3A1
+
+This is the figma link that i have used to build this project. You can also do copy and change the 
+figma accroding to your need and build the same project using DhiWise.
+
+#Tokens required to run the project
+In order to run this project user needs Dev.to and medium api key.
+
+##Dev.to
+Dev.to Link => https://dev.to/settings/extensions
+
+For Dev.to Api key firstly go to dev.to then goto settings, goto extensions scroll down to Generate a new Key.
+Enter your application name and click on the Generate a new Key.
+
+Copy the key and paste that key into the api.js file. Enter this key at the location of "Please Enter Dev.to API key here".
+For Api.js file Goto src folder -> goto service folder -> Api.js
+
+##Medium
+Medium Link => https://medium.com/me/settings
+For Medium Token go to Medium then click on the profile icon on the left botton side of the screen. Now go to setting select integration token.
+Into Integration tokens enter the description for your application and click on integration token button copy that key and
+paste that key into the api.js file. Enter this key at the location of "Please Enter Medium API key here".
+For Api.js file Goto src folder -> goto service folder -> Api.js
+
 # Design System
 
 All the design has been generated with [tailwindcss](https://tailwindcss.com/).
