@@ -21,7 +21,7 @@ export const getMe = ({
     url: ` https://cors-anywhere.herokuapp.com/https://dev.to/api/articles/me`,
     method: "get",
     params,
-    headers: { "api-key": "Fq23mfYKewnXT6wXoAcR26mJ", ...headers },
+    headers: { "api-key": "Please Enter Dev.to API key here", ...headers },
     data,
   });
 };
@@ -32,12 +32,12 @@ export const postPosts = ({
   path = {},
 } = {}) => {
   return defaultAxios({
-    url: `https://cors-anywhere.herokuapp.com/https://api.medium.com/v1/users/1c328e6d786d4f06a1f6810221322ce0bdd590aaf04361857b0b0bd3a0e9613de/posts`,
+    url: `https://cors-anywhere.herokuapp.com/https://api.medium.com/v1/users/Please enter user ID here/posts`,
     method: "post",
     params,
     headers: {
       Authorization:
-        "Bearer 2bb3834b7f254e0d7d051bfe5893a62afb275c4bc6227af1ab134a484b8304232",
+        "Bearer Please Enter Medium API key here",
       "Content-Type": "application/json",
       ...headers,
     },
@@ -58,7 +58,7 @@ export const postArticles = ({
     params,
     headers: {
       "Content-Type": "application/json",
-      "api-key": "Fq23mfYKewnXT6wXoAcR26mJ",
+      "api-key": "Please Enter Dev.to API key here",
       ...headers,
     },
     data: {
@@ -94,12 +94,12 @@ export const getPublications = ({
   path = {},
 } = {}) => {
   return defaultAxios({
-    url: ` https://cors-anywhere.herokuapp.com/https://api.medium.com/v1/users/1c328e6d786d4f06a1f6810221322ce0bdd590aaf04361857b0b0bd3a0e9613de/publications`,
+    url: ` https://cors-anywhere.herokuapp.com/https://api.medium.com/v1/users/Please enter your user ID here/publications`,
     method: "get",
     params,
     headers: {
       Authorization:
-        "Bearer 2bb3834b7f254e0d7d051bfe5893a62afb275c4bc6227af1ab134a484b8304232",
+        "Bearer Please Enter Medium API key here",
       ...headers,
     },
     data,
@@ -117,7 +117,7 @@ export const getMe1 = ({
     params,
     headers: {
       Authorization:
-        "Bearer 2bb3834b7f254e0d7d051bfe5893a62afb275c4bc6227af1ab134a484b8304232",
+        "Bearer Please Enter Medium API key here",
       ...headers,
     },
     data,
@@ -133,7 +133,7 @@ export const getMe2 = ({
     url: ` https://cors-anywhere.herokuapp.com/https://dev.to/api/users/me`,
     method: "get",
     params,
-    headers: { "api-key": "Fq23mfYKewnXT6wXoAcR26mJ", ...headers },
+    headers: { "api-key": "Please Enter Dev.to API key here", ...headers },
     data,
   });
 };
