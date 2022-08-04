@@ -4,7 +4,7 @@ import { Column, Stack, Grid, Image, Text, Row, Button } from "components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getArticles1 } from "service/api";
 
-const DashboardPage = () => {
+const TagspostPage = () => {
   const [apiData8, setapiData8] = React.useState();
   React.useEffect(() => {
     callApi8();
@@ -172,4 +172,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default TagspostPage;
